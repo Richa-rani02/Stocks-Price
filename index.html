@@ -14,9 +14,9 @@
 <body>
     <div class="container">
         <h1>STOCKS PRICES</h1>
-        <input id="initialprice_input" type="number" placeholder="Enter Initial price" required/>
-        <input id="quantity_input" type="number" placeholder="Enter Quantity here" required/>
-        <input id="currprice_input" type="number" placeholder="Enter current price here" required/>
+        <input id="initialprice_input" type="number" placeholder="Enter Initial price" min="0" oninput="validity.valid||(value='');" required/>
+        <input id="quantity_input" type="number" placeholder="Enter Quantity here" min="0" oninput="validity.valid||(value='');" required/>
+        <input id="currprice_input" type="number" placeholder="Enter current price here" min="0" oninput="validity.valid||(value='');" required/>
         <button id="btn">CHECK</button>
         <div id="result"></div>
 

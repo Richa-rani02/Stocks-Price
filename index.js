@@ -1,6 +1,6 @@
-var purchase = document.querySelector("#initialprice_input");
-var quantity = document.querySelector("#quantity_input");
-var current = document.querySelector("#currprice_input");
+var purchase_amount = document.querySelector("#initialprice_input");
+var stocks_quantity = document.querySelector("#quantity_input");
+var current_amount = document.querySelector("#currprice_input");
 
 var result = document.querySelector("#result");
 var btn = document.querySelector("#btn");
@@ -8,24 +8,30 @@ var btn = document.querySelector("#btn");
 
 btn.addEventListener("click", function check() {
 
-    var purchaseAmount = parseFloat(purchase.value);
-    var quantityInt = parseInt(quantity.value);
-    var currentAmount = parseFloat(current.value);
-    returnAmount = currentAmount - purchaseAmount;
-    var percentage = (Math.abs(returnAmount) / purchaseAmount) * 100;
-    var amount = Math.abs(returnAmount) * quantityInt;
+    var initial = Number(purchase_amount.value);
+    var quantity = Number(stocks_quantity.value);
+    var current = Number(current_amount.value);
+    result.innerText = calculate_proft_and_loss(initial, quantity, current);
 
-    if (returnAmount < 0) {
 
-        result.innerText = `You lost ${percentage.toFixed(
-      2)}%. Your total loss is Rs.${amount.toFixed(2)}`;
+})
+
+function calculate_proft_and_loss(initial, quantity, current) {
+    if (initial > current) {
+        var loss = (initial - current) * quantity;
+        var loss_percentage = (loss / (initial * quantity)) * 100;
         result.style.color = "#EF4444";
-
-    } else {
-
-        result.innerText = `You gained ${percentage.toFixed(
-       2 )}%. Your total profit is Rs.${amount.toFixed(2)}`;
+        var res = "Your total Loss is " + loss + " Loss Percentage is " + loss_percentage.toFixed(2) + "%";
+        return res;
+    } else if (current > initial) {
+        var gain = (current - initial) * quantity;
+        var gain_percentage = (gain / (initial * quantity)) * 100;
         result.style.color = "#10B981";
-
+        var ret = "Your total Gain is " + gain + " Gain Percentage is " + gain_percentage.toFixed(2) + "%";
+        return ret;
+    } else {
+        result.style.color = 'orange'
+        var ret = "You are neither at profit nor at loss";
+        return ret;
     }
-});
+}
